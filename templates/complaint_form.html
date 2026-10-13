@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+
+<body>
+<header class="portal-header">
+    <h1>JSPM University</h1>
+    <p>{{ role|title }} Complaint Portal</p>
+</header>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="success-box">
+            ✅ {{ messages[0] }}
+            {% if 'Ticket ID:' in messages[0] %}
+                <button onclick="copyTicket()" class="copy-btn">Copy</button>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endwith %}
+<div class="form-container">
+    <div class="form-card">
+
+        <h2>Submit Complaint</h2>
+        <p class="subtitle">Report issues within the university</p>
+
+        <form method="POST" action="{{ url_for('submit_complaint') }}" enctype="multipart/form-data">
+
+            <label>{{ role|title }} ID / PRN</label>
+            <input type="text" name="prn_or_faculty_id" required>
+
+            <label>Category</label>
+            <select name="category" required>
+                <option value="">Select a category</option>
+                {% for cat in categories %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Complaint Description</label>
+            <textarea name="description" rows="4" required></textarea>
+
+            <label>Upload Image (optional)</label>
+            <input type="file" name="image">
+
+            <button type="submit">Submit Complaint</button>
+        </form>
+
+    </div>
+</div>
+<script>
+function copyTicket() {
+    const box = document.querySelector('.success-box');
+    const text = box ? box.textContent.replace('✅', '').trim().split('Ticket ID:')[1] || '' : '';
+    if (!text) return;
+
+    navigator.clipboard.writeText(text.trim())
+        .then(() => {
+            const btn = document.querySelector('.copy-btn');
+            if (btn) {
+                btn.innerText = 'Copied!';
+                setTimeout(() => btn.innerText = 'Copy', 1500);
+            }
+        })
+        .catch(() => {
+            const tempInput = document.createElement('input');
+            tempInput.value = text.trim();
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Copied: ' + text.trim());
+        });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: #1f2937;
+}
+
+.portal-header {
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+    border-bottom: 4px solid #b91c1c;
+}
+
+.portal-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.portal-header p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #d1d5db;
+}
+
+.form-container {
+    min-height: calc(100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 20px;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 620px;
+    box-shadow: 0 16px 40px rgba(17, 24, 39, 0.12);
+}
+
+.form-card h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    color: #111827;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: #fafafa;
+    transition: 0.2s ease;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #b91c1c;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.08);
+    outline: none;
+}
+
+button, .link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+button:hover, .link-btn:hover {
+    filter: brightness(1.04);
+}
+
+.success-box, .error-box {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.success-box {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.error-box {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.result-card {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 14px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.result-card h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+
+.result-card p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.status-resolved {
+    color: #15803d;
+    font-weight: 700;
+}
+
+.status-pending {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+.inline-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.inline-actions .link-btn,
+.inline-actions form {
+    width: auto;
+    margin-top: 0;
+}
+
+.inline-actions form button,
+.danger-btn {
+    width: auto;
+    min-width: 120px;
+    margin-top: 0;
+}
+
+.history-box {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+}
+
+.history-box h4 {
+    margin: 0 0 10px;
+}
+
+.history-item {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.history-item strong,
+.history-item span,
+.history-item small {
+    display: block;
+}
+
+.history-item small {
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.copy-btn {
+    margin-left: 0;
+    width: auto;
+    min-width: 150px;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    background: #111827;
+}
+
+.sr-only {
+    position: absolute;
+    left: -9999px;
+}
+
+@media (max-width: 480px) {
+    .form-card {
+        padding: 20px;
+    }
+
+    .inline-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .inline-actions .link-btn,
+    .inline-actions form,
+    .inline-actions form button,
+    .copy-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+<header class="portal-header">
+    <h1>JSPM University</h1>
+    <p>{{ role|title }} Portal</p>
+</header>
+
+<div class="dashboard-container">
+
+    <h2>Welcome, {{ user_name }}</h2>
+    <p>Select an option below</p>
+
+    <div class="dashboard-actions">
+
+        <a href="{{ url_for('complaint_form') }}" class="card">
+            <h3>📩 Raise Complaint</h3>
+            <p>Report an issue in the university</p>
+        </a>
+
+        <a href="{{ url_for('track_complaint') }}" class="card">
+            <h3>🔍 Track Complaint</h3>
+            <p>Check status of your complaint</p>
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="card">
+            <h3>🚪 Logout</h3>
+            <p>Exit the portal securely</p>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

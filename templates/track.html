@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Complaint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+<body>
+
+<header class="portal-header">
+    <h1>JSPM University</h1>
+    <p>Track Your Complaint</p>
+</header>
+
+<div class="form-container">
+    <div class="form-card">
+
+        <h2>Track Complaint</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="error-box">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Enter Ticket ID</label>
+            <input type="text" name="complaint_id" required>
+            <button type="submit">Check Status</button>
+        </form>
+
+        {% if complaint %}
+        <div class="result-card">
+            <h3>Complaint Details</h3>
+
+            <p><strong>Complaint ID:</strong> {{ complaint.id }}</p>
+            <p><strong>Ticket ID:</strong> {{ complaint.ticket_id }}</p>
+            <p><strong>Email:</strong> {{ complaint.email }}</p>
+            <p><strong>Category:</strong> {{ complaint.category }}</p>
+            <p><strong>Description:</strong> {{ complaint.description }}</p>
+            <p><strong>Status:</strong>
+                <span class="{{ 'status-resolved' if complaint.status == 'Resolved' else 'status-pending' }}">
+                    {{ complaint.status }}
+                </span>
+            </p>
+            <p><strong>Created At:</strong> {{ complaint.created_at }}</p>
+
+            {% if can_edit %}
+                <div class="inline-actions">
+                    <a href="{{ url_for('edit_complaint', complaint_id=complaint.id) }}" class="link-btn">Edit Complaint</a>
+                    <form method="POST" action="{{ url_for('delete_complaint_route', complaint_id=complaint.id) }}" onsubmit="return confirm('Delete this complaint?');">
+                        <button type="submit" class="danger-btn">Delete</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div class="history-box">
+                <h4>Status History</h4>
+                {% if history %}
+                    {% for item in history %}
+                        <div class="history-item">
+                            <strong>{{ item.status }}</strong>
+                            <span>{{ item.note or 'No note' }}</span>
+                            <small>{{ item.created_at }} · {{ item.updated_by }}</small>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No status updates yet.</p>
+                {% endif %}
+            </div>
+
+            <span id="ticketId" class="sr-only">{{ complaint.ticket_id }}</span>
+            <button onclick="copyTicket()" class="copy-btn">Copy Ticket ID</button>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+function copyTicket() {
+    const text = document.getElementById('ticketId')?.innerText || '';
+    if (!text) return;
+    navigator.clipboard.writeText(text.trim())
+        .then(() => {
+            const btn = document.querySelector('.copy-btn');
+            if (btn) btn.innerText = 'Copied!';
+        })
+        .catch(() => {
+            const temp = document.createElement('input');
+            temp.value = text.trim();
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            temp.remove();
+            alert('Copied: ' + text.trim());
+        });
+}
+</script>
+
+</body>
+</html>

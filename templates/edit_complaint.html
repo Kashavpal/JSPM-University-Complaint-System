@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Complaint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+<body>
+    <header class="portal-header">
+        <h1>JSPM University</h1>
+        <p>Edit Complaint</p>
+    </header>
+
+    <div class="form-container">
+        <div class="form-card">
+            <h2>Update Complaint</h2>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="error-box">{{ messages[0] }}</div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('edit_complaint', complaint_id=complaint.id) }}" enctype="multipart/form-data">
+                <label>PRN / Faculty ID</label>
+                <input type="text" name="prn_or_faculty_id" value="{{ complaint.prn_or_faculty_id }}" required>
+
+                <label>Category</label>
+                <select name="category" required>
+                    {% for cat in categories %}
+                        <option value="{{ cat }}" {% if cat == complaint.category %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Description</label>
+                <textarea name="description" rows="5" required>{{ complaint.description }}</textarea>
+
+                <label>Replace Image (optional)</label>
+                <input type="file" name="image">
+
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
